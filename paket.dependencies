@@ -1,0 +1,12 @@
+source https://www.nuget.org/api/v2
+redirects on
+framework net462
+
+nuget FAKE
+
+nuget FSharp.Core
+
+nuget Elmish.Wpf
+
+# nuget Expression.Blend.Sdk
+# nuget FsXaml.Wpf 3.1.2

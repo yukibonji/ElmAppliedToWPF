@@ -1,0 +1,25 @@
+﻿<Window
+    x:Class="Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:fsxaml="http://github.com/fsprojects/FsXaml"
+    xmlns:views="clr-namespace:Views"
+    Title="Elmish WPF!" Height="200" Width="400">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="50" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <views:NumericUpDown DataContext="{Binding UpDown1}"/>
+        <views:NumericUpDown DataContext="{Binding UpDown2}"/>
+    </StackPanel>
+</Window>
