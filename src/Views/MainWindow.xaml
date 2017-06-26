@@ -18,8 +18,41 @@
             <Setter Property="FontSize" Value="20" />
         </Style>
     </Window.Resources>
-    <StackPanel>
-        <views:NumericUpDown DataContext="{Binding UpDown1}"/>
-        <views:NumericUpDown DataContext="{Binding UpDown2}"/>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="0"
+                    Command="{Binding Path=Remove}"
+                    Content="-"/>
+            <Button Grid.Row="0" Grid.Column="1"
+                    Command="{Binding Path=Add}"
+                    Content="+"/>
+        </Grid>
+        <ListView Grid.Row="1" ItemsSource="{Binding Items}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <views:NumericUpDown Grid.Column="1"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </Window>

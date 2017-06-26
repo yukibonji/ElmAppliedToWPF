@@ -12,7 +12,7 @@ module UpDown =
     | Up
     | Down
 
-    let init () = { Value = 0.0 }
+    let init () = { Value = 1.2 }
 
     let update msg m =
         match msg with
@@ -27,26 +27,38 @@ module UpDown =
 module Counters = 
     
     type Model =
-        { UpDown1 : UpDown.Model ; UpDown2 : UpDown.Model }
+        UpDown.Model list
+        
 
     type Msg =
-        | UpDownMsg1 of UpDown.Msg
-        | UpDownMsg2 of UpDown.Msg
+        | Add
+        | Remove
+        | UpDownMsg of UpDown.Msg
 
-    let init _ = { UpDown1 = UpDown.init(); UpDown2 = UpDown.init() }
+    let init _ = []
+
+    let rec remove i l =
+        match i, l with
+        | 0, x::xs -> xs
+        | i, x::xs -> x::remove (i - 1) xs
+        | i, [] -> []
 
     let update msg model =
         match msg with
-        | UpDownMsg1 (m) -> { model with UpDown1 = (UpDown.update m model.UpDown1)}
-        | UpDownMsg2 (m) -> { model with UpDown2 = (UpDown.update m model.UpDown2)}
-        
+        | Add -> List.append model [UpDown.init()]
+        | Remove -> remove (List.length model - 1) model
+    
     let view model _ =
         let upDownViewBinding : ViewBindings<UpDown.Model, UpDown.Msg> = 
             [ "Value" |> Binding.oneWay (fun m -> m.Value)
               "Up"    |> Binding.cmd (fun _ -> UpDown.Up)
               "Down"  |> Binding.cmd (fun _ -> UpDown.Down) ]
-        ["UpDown1" |> Binding.vm (fun m -> m.UpDown1) upDownViewBinding (fun msg -> UpDownMsg1(msg))
-         "UpDown2" |> Binding.vm (fun m -> m.UpDown2) upDownViewBinding (fun msg -> UpDownMsg2(msg)) ]
+
+        [ 
+          "Items" |> Binding.oneWay (fun m -> m)
+          "Add" |> Binding.cmd (fun _ -> Add)
+          "Remove" |> Binding.cmd (fun _ -> Remove)
+        ]
 
 [<STAThread; EntryPoint>]
 let main _ =
