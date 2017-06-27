@@ -12,17 +12,20 @@ module UpDown =
     | Up
     | Down
 
-    let init () = { Value = 1.2 }
+    let init _ = { Value = 1.2 }
 
     let update msg m =
         match msg with
         | Up    -> { m with Value = m.Value + 1.0 }
         | Down  -> { m with Value = m.Value - 1.0 }
 
-    let view _ _ =
+    let viewBindings : ViewBindings<Model, Msg> = 
         [ "Value" |> Binding.oneWay (fun m -> m.Value)
           "Up"    |> Binding.cmd (fun _ -> Up)
           "Down"  |> Binding.cmd (fun _ -> Down) ]
+
+    let view _ _ : ViewBindings<Model, Msg> = 
+        viewBindings
 
 module Counters = 
     
@@ -33,6 +36,7 @@ module Counters =
     type Msg =
         | Add
         | Remove
+        | UpDownMsg of UpDown.Msg
 
     let init _ = []
 
@@ -47,16 +51,12 @@ module Counters =
         | Add -> List.append model [UpDown.init()]
         | Remove -> removeLast model
     
-    let view model _ =
-        let upDownViewBinding : ViewBindings<UpDown.Model, UpDown.Msg> = 
-            [ "Value" |> Binding.oneWay (fun m -> m.Value)
-              "Up"    |> Binding.cmd (fun _ -> UpDown.Up)
-              "Down"  |> Binding.cmd (fun _ -> UpDown.Down) ]
-
+    let view model dispatch : ViewBindings<Model, Msg>=
         [ 
           "Items" |> Binding.oneWay id
           "Add" |> Binding.cmd (fun _ -> Add)
           "Remove" |> Binding.cmd (fun _ -> Remove)
+          "asddf" |> Binding.vm UpDown.init UpDown.viewBindings UpDownMsg
         ]
 
 [<STAThread; EntryPoint>]

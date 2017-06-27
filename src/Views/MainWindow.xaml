@@ -22,17 +22,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="0"
+            <Button Grid.Column="0"
                     Command="{Binding Path=Remove}"
                     Content="-"/>
-            <Button Grid.Row="0" Grid.Column="1"
+            <Button Grid.Column="1"
                     Command="{Binding Path=Add}"
                     Content="+"/>
         </Grid>
@@ -44,13 +43,7 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <views:NumericUpDown Grid.Column="1"/>
-                    </Grid>
+                    <views:NumericUpDown/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
