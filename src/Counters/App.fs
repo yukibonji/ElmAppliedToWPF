@@ -33,20 +33,19 @@ module Counters =
     type Msg =
         | Add
         | Remove
-        | UpDownMsg of UpDown.Msg
 
     let init _ = []
 
-    let rec remove i l =
-        match i, l with
-        | 0, x::xs -> xs
-        | i, x::xs -> x::remove (i - 1) xs
-        | i, [] -> []
+    let rec removeLast (l:'a list) : 'a list =
+        match l with
+        | [] -> []
+        | [x] -> []
+        | x::xs -> x::removeLast xs
 
     let update msg model =
         match msg with
         | Add -> List.append model [UpDown.init()]
-        | Remove -> remove (List.length model - 1) model
+        | Remove -> removeLast model
     
     let view model _ =
         let upDownViewBinding : ViewBindings<UpDown.Model, UpDown.Msg> = 
@@ -55,7 +54,7 @@ module Counters =
               "Down"  |> Binding.cmd (fun _ -> UpDown.Down) ]
 
         [ 
-          "Items" |> Binding.oneWay (fun m -> m)
+          "Items" |> Binding.oneWay id
           "Add" |> Binding.cmd (fun _ -> Add)
           "Remove" |> Binding.cmd (fun _ -> Remove)
         ]
