@@ -6,23 +6,25 @@ open System
 
 module UpDown =
     type Model =
-        { Value : double }
+        { Value : double
+          Id : Guid}
        
     type Msg =
-    | Up
-    | Down
+    | Up of Guid
+    | Down of Guid
 
-    let init _ = { Value = 1.2 }
+    let init _ = { Value = 1.2; Id = Guid.NewGuid() }
 
     let update msg m =
+        let op inc id model = if (id = model.Id) then {model with Value = model.Value + inc} else model
         match msg with
-        | Up    -> { m with Value = m.Value + 1.0 }
-        | Down  -> { m with Value = m.Value - 1.0 }
+        | Up id   -> op 1.0 id m
+        | Down id -> op -1.0 id m
 
     let viewBindings : ViewBindings<Model, Msg> = 
         [ "Value" |> Binding.oneWay (fun m -> m.Value)
-          "Up"    |> Binding.cmd (fun _ -> Up)
-          "Down"  |> Binding.cmd (fun _ -> Down) ]
+          "Up"    |> Binding.cmd (fun m -> Up m.Id)
+          "Down"  |> Binding.cmd (fun m -> Down m.Id) ]
 
     let view _ _ : ViewBindings<Model, Msg> = 
         viewBindings
@@ -50,13 +52,14 @@ module Counters =
         match msg with
         | Add -> List.append model [UpDown.init()]
         | Remove -> removeLast model
+        | UpDownMsg msg -> model |> List.map (UpDown.update msg)
     
     let view model dispatch : ViewBindings<Model, Msg>=
         [ 
           "Items" |> Binding.oneWay id
           "Add" |> Binding.cmd (fun _ -> Add)
           "Remove" |> Binding.cmd (fun _ -> Remove)
-          "asddf" |> Binding.vm UpDown.init UpDown.viewBindings UpDownMsg
+          //"asddf" |> Binding.vm UpDown.init UpDown.viewBindings UpDownMsg
         ]
 
 [<STAThread; EntryPoint>]
