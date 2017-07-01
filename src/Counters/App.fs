@@ -23,13 +23,13 @@ module UpDown =
 
     let viewBindings : ViewBindings<Model, Msg> = 
         [ "Value" |> Binding.oneWay (fun m -> m.Value)
-          "Up"    |> Binding.cmd (fun m -> Up m.Id)
-          "Down"  |> Binding.cmd (fun m -> Down m.Id) ]
+          "Up"    |> Binding.cmd (fun _ m -> Up m.Id)
+          "Down"  |> Binding.cmd (fun _ m -> Down m.Id) ]
 
     let view _ _ : ViewBindings<Model, Msg> = 
         viewBindings
 
-module Counters = 
+module Counters =   
     
     type Model =
         UpDown.Model list
@@ -57,8 +57,8 @@ module Counters =
     let view model dispatch : ViewBindings<Model, Msg>=
         [ 
           "Items" |> Binding.oneWay id
-          "Add" |> Binding.cmd (fun _ -> Add)
-          "Remove" |> Binding.cmd (fun _ -> Remove)
+          "Add" |> Binding.cmd (fun _ _ -> Add)
+          "Remove" |> Binding.cmd (fun _ _ -> Remove)
           //"asddf" |> Binding.vm UpDown.init UpDown.viewBindings UpDownMsg
         ]
 
