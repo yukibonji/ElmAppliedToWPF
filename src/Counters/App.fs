@@ -1,44 +1,43 @@
-open Elmish
-open Elmish.WPF
+open Gjallarhorn
+open Gjallarhorn.Bindable
+open Gjallarhorn.Wpf
 open System
 
 
 
 module UpDown =
     type Model =
-        { Value : double
-          Id : Guid}
+        { Value : double }
        
     type Msg =
-    | Up of Guid
-    | Down of Guid
+    | Up
+    | Down
 
-    let init _ = { Value = 0.0; Id = Guid.NewGuid() }
+    let init _ = { Value = 0.0 }
 
     let update msg m =
-        let op inc id model = if (id = model.Id) then {model with Value = model.Value + inc} else model
+        let op inc = {m with Value = m.Value + inc}
         match msg with
-        | Up id   -> op 1.0 id m
-        | Down id -> op -1.0 id m
+        | Up -> op 1.0
+        | Down -> op -1.0
 
-    let viewBindings : ViewBindings<Model, Msg> = 
-        [ "Value" |> Binding.oneWay (fun m -> m.Value)
-          "Up"    |> Binding.cmd (fun _ m -> Up m.Id)
-          "Down"  |> Binding.cmd (fun _ m -> Down m.Id) ]
-
-    let view _ _ : ViewBindings<Model, Msg> = 
-        viewBindings
+    let viewBindings source (model : ISignal<Model>) = 
+        model |> Signal.map (fun m -> m.Value) |> Binding.toView source "Value"
+        [ 
+            Binding.createMessage "Up" Up source
+            Binding.createMessage "Down" Down source
+        ]
 
 module Counters =   
     
     type Model =
-        UpDown.Model list
+        (Guid * UpDown.Model) list
         
 
     type Msg =
         | Add
         | Remove
-        | UpDownMsg of UpDown.Msg
+        | UpDownMsg of UpDown.Msg * Guid
 
     let init _ = []
 
@@ -48,24 +47,23 @@ module Counters =
         | [x] -> []
         | x::xs -> x::removeLast xs
 
-    let update msg model =
+    let update msg (model : Model) : Model =
         match msg with
-        | Add -> List.append model [UpDown.init()]
+        | Add -> List.append model [Guid.NewGuid(), UpDown.init()]
         | Remove -> removeLast model
-        | UpDownMsg msg -> model |> List.map (UpDown.update msg)
+        | UpDownMsg (udmsg, guid) -> model |> List.map (fun m -> (if (fst m) = guid then guid, UpDown.update udmsg (snd m) else m))
     
-    let view model dispatch : ViewBindings<Model, Msg>=
+    let viewBindings source (model : ISignal<Model>) =
         [ 
-          "Items" |> Binding.oneWay id
-          "Add" |> Binding.cmd (fun _ _ -> Add)
-          "Remove" |> Binding.cmd (fun _ _ -> Remove)
-          "Up" |> Binding.cmd (fun p _ -> p :?> Guid |> UpDown.Msg.Up |> UpDownMsg)
-          "Down" |> Binding.cmd (fun p _ -> p :?> Guid |> UpDown.Msg.Down |> UpDownMsg)
+          BindingCollection.toView source "Items" model (fun source2 tup -> (UpDown.viewBindings source2 (tup |> Signal.map snd)))
+          |> Observable.map (fun (msg : UpDown.Msg, counter : Guid * UpDown.Model) -> UpDownMsg (msg, (fst counter)))
+          Binding.createMessage "Add" Add source
+          Binding.createMessage "Remove" Remove source
         ]
+
 
 [<STAThread; EntryPoint>]
 let main _ =
-    Program.mkSimple Counters.init Counters.update Counters.view
-    |> Program.withSubscription (fun _ -> [ ] |> List.map Cmd.ofSub |> Cmd.batch)
-    |> Program.withConsoleTrace
-    |> Program.runWindow (Views.MainWindow())
+    let comp = Framework.basicApplication (Counters.init()) Counters.update Counters.viewBindings
+    let window = Views.MainWindow
+    Framework.runApplication System.Windows.Application window comp

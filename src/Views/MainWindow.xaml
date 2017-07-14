@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:fsxaml="http://github.com/fsprojects/FsXaml"
     xmlns:views="clr-namespace:Views"
-    Title="Elmish WPF!" Height="200" Width="400">
+    Title="Elm applied to WPF!" Height="200" Width="400">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Width" Value="50" />

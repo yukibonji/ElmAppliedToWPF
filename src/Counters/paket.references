@@ -1,3 +1,5 @@
 FSharp.Core
 
-Elmish.Wpf
+Gjallarhorn
+Gjallarhorn.Bindable
+Gjallarhorn.Bindable.Wpf

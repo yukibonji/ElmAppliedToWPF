@@ -7,6 +7,11 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Counters", "src\Counters\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Views", "src\Views\Views.csproj", "{3CDC5ADD-B086-457E-A59F-4648F42ACC5D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{728E8D93-F990-4908-8A41-7FA7AF572BA8}"
+	ProjectSection(SolutionItems) = preProject
+		paket.dependencies = paket.dependencies
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
