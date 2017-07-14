@@ -17,14 +17,20 @@
         </Grid.ColumnDefinitions>
         <TextBox Grid.Row="0" Grid.RowSpan="2" Text="{Binding Value, Mode=OneWay}">
             <TextBox.InputBindings>
-                <KeyBinding Command="{Binding Up}" Key="Up" />
-                <KeyBinding Command="{Binding Down}" Key="Down" />
-                <MouseBinding Command="{Binding Up}" >
+                <KeyBinding Key="Up" Command="{Binding Path=DataContext.Up, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"
+                            CommandParameter="{Binding Id}"/>
+                <KeyBinding Key="Down" Command="{Binding Path=DataContext.Down, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"
+                            CommandParameter="{Binding Id}"/>
+                <MouseBinding 
+                    Command="{Binding Path=DataContext.Up, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"
+                    CommandParameter="{Binding Id}">
                     <MouseBinding.Gesture>
                         <views:MouseWheelUp/>
                     </MouseBinding.Gesture>
                 </MouseBinding>
-                <MouseBinding Command="{Binding Down}" >
+                <MouseBinding 
+                    Command="{Binding Path=DataContext.Down, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"
+                    CommandParameter="{Binding Id}" >
                     <MouseBinding.Gesture>
                         <views:MouseWheelDown/>
                     </MouseBinding.Gesture>
@@ -32,7 +38,11 @@
             </TextBox.InputBindings>
             
         </TextBox>
-        <Button Grid.Column="1" Grid.Row="0" Command="{Binding Up}">^</Button>
-        <Button Grid.Column="1" Grid.Row="1" Command="{Binding Down}">v</Button>
+        <Button Grid.Column="1" Grid.Row="0" Content="^"
+                Command="{Binding Path=DataContext.Up, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"
+                CommandParameter="{Binding Id}"/>
+        <Button Grid.Column="1" Grid.Row="1" Content="v" 
+                Command="{Binding Path=DataContext.Down, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"
+                CommandParameter="{Binding Id}"/>
     </Grid>
 </UserControl>

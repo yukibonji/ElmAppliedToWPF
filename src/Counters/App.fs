@@ -13,7 +13,7 @@ module UpDown =
     | Up of Guid
     | Down of Guid
 
-    let init _ = { Value = 1.2; Id = Guid.NewGuid() }
+    let init _ = { Value = 0.0; Id = Guid.NewGuid() }
 
     let update msg m =
         let op inc id model = if (id = model.Id) then {model with Value = model.Value + inc} else model
@@ -59,7 +59,8 @@ module Counters =
           "Items" |> Binding.oneWay id
           "Add" |> Binding.cmd (fun _ _ -> Add)
           "Remove" |> Binding.cmd (fun _ _ -> Remove)
-          //"asddf" |> Binding.vm UpDown.init UpDown.viewBindings UpDownMsg
+          "Up" |> Binding.cmd (fun p _ -> p :?> Guid |> UpDown.Msg.Up |> UpDownMsg)
+          "Down" |> Binding.cmd (fun p _ -> p :?> Guid |> UpDown.Msg.Down |> UpDownMsg)
         ]
 
 [<STAThread; EntryPoint>]

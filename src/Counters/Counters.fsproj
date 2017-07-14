@@ -89,7 +89,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.6.2'">
       <ItemGroup>
         <Reference Include="Elmish.WPF">
-          <HintPath>..\..\packages\Elmish.WPF\lib\net46\Elmish.WPF.dll</HintPath>
+          <HintPath>..\..\packages\Elmish.WPF\lib\net45\Elmish.WPF.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

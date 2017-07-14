@@ -2,6 +2,6 @@ REDIRECTS: ON
 RESTRICTION: == net462
 NUGET
   remote: https://www.nuget.org/api/v2
-    Elmish.WPF (1.0.0-beta-2)
+    Elmish.WPF (1.0.0-beta-4)
     FAKE (4.61.3)
     FSharp.Core (4.2.1)
