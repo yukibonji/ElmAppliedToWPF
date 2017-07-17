@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <TextBox Grid.Row="0" Grid.RowSpan="2" Text="{Binding Value, Mode=OneWay}">
+        <TextBox Grid.Row="0" Grid.RowSpan="2" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.InputBindings>
                 <KeyBinding Key="Up" Command="{Binding Up}"/>
                 <KeyBinding Key="Down" Command="{Binding Down}"/>
