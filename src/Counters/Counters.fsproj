@@ -80,6 +80,8 @@
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Views\Views.csproj">
       <Name>Views</Name>
       <Project>{3cdc5add-b086-457e-a59f-4648f42acc5d}</Project>
