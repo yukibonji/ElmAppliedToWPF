@@ -1,6 +1,8 @@
 source https://www.nuget.org/api/v2
 redirects on
 framework net462
+generate_load_scripts: true
+
 
 nuget FAKE
 
