@@ -29,6 +29,7 @@ module Counters =
         | UpDownMsg (udmsg, guid) -> model |> List.map (fun m -> (if (fst m) = guid then guid, UpDown.update udmsg (snd m) else m))
     
     let viewBindings source (model : ISignal<Model>) =
+        model |> Signal.map (List.length >> (fun s -> s > 0)) |> Binding.toView source "RemoveActivated"
         model |> Signal.map ((List.map snd) >> List.map (fun m -> m.Value) >> (List.fold (+) 0.0)) |> Binding.toView source "Sum"
         [ 
           BindingCollection.toView source "Items" model (fun source2 tup -> (UpDown.viewBindings source2 (tup |> Signal.map snd)))
