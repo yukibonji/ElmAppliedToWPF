@@ -1,4 +1,4 @@
-namespace Elm.Components
+namespace Counters.Components
 
 open Gjallarhorn
 open Gjallarhorn.Bindable

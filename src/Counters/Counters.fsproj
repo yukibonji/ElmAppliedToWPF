@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Name>Counters</Name>
@@ -51,6 +51,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Elm\Elm.fsproj">
+      <Name>Elm</Name>
+      <Project>{35a70c96-df53-49a7-99ed-843700547a75}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Views\Views.csproj">
       <Name>Views</Name>
       <Project>{3cdc5add-b086-457e-a59f-4648f42acc5d}</Project>

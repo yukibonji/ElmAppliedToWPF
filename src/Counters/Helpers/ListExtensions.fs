@@ -1,4 +1,4 @@
-namespace Elm.Helpers
+namespace Counters.Helpers
 
 module ListExt = 
     let rec removeLast (l:'a list) : 'a list =

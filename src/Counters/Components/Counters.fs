@@ -1,4 +1,4 @@
-namespace Elm.Components
+namespace Counters.Components
 
 open System
 
@@ -6,7 +6,7 @@ open Gjallarhorn
 open Gjallarhorn.Bindable
 
 open UpDown
-open Elm.Helpers
+open Counters.Helpers
 
 module Counters =   
     
@@ -25,7 +25,7 @@ module Counters =
     let update msg (model : Model) : Model =
         match msg with
         | Add -> List.append model [Guid.NewGuid(), UpDown.init()]
-        | Remove -> Elm.Helpers.ListExt.removeLast model
+        | Remove -> Counters.Helpers.ListExt.removeLast model
         | UpDownMsg (udmsg, guid) -> model |> List.map (fun m -> (if (fst m) = guid then guid, UpDown.update udmsg (snd m) else m))
     
     let private greaterThan ref value =
