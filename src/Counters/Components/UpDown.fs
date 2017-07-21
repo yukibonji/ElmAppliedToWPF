@@ -1,10 +1,5 @@
 namespace Counters.Components
 
-open Gjallarhorn
-open Gjallarhorn.Bindable
-open Gjallarhorn.Validation.Converters
-
-
 open System
 
 module UpDown =
@@ -17,7 +12,7 @@ module UpDown =
     | Down
     | Edit of string
 
-    let init _ = 
+    let init = 
         { Value = 0.0 }
 
     let update msg m =
@@ -27,10 +22,9 @@ module UpDown =
         | Down -> op -1.0
         | Edit s -> { m with Value = Double.Parse s }
 
-    let viewBindings source (model : ISignal<Model>) = 
+    let viewBindings : Elm.ViewBindings<Model, Msg> = 
         [
             "Up" |> Elm.Bindings.cmd (fun _ -> Up)
             "Down" |> Elm.Bindings.cmd (fun _ -> Down)
             "Value" |> Elm.Bindings.twoWay (fun m -> m.Value) Edit
         ]
-        |> Elm.Bindings.convert source model
