@@ -28,11 +28,9 @@ module UpDown =
         | Edit s -> { m with Value = Double.Parse s }
 
     let viewBindings source (model : ISignal<Model>) = 
-        [ 
-            model 
-            |> Signal.map (fun m -> m.Value) 
-            |> Binding.toFromViewValidated source "Value" fromTo 
-            |> Observable.map (fun m -> Edit m.Value)
-            Binding.createMessage "Up" Up source
-            Binding.createMessage "Down" Down source
+        [
+            "Up" |> Elm.Bindings.cmd (fun _ -> Up)
+            "Down" |> Elm.Bindings.cmd (fun _ -> Down)
+            "Value" |> Elm.Bindings.twoWay (fun m -> m.Value) Edit
         ]
+        |> Elm.Bindings.convert source model

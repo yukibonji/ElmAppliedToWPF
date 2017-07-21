@@ -32,13 +32,10 @@ module Counters =
         value > ref
 
     let viewBindings source (model : ISignal<Model>) =
-        model |> Signal.map (List.length >> (greaterThan 0)) |> Binding.toView source "RemoveActivated"
-        model |> Signal.map ((List.map snd) >> List.map (fun m -> m.Value) >> (List.fold (+) 0.0)) |> Binding.toView source "Sum"
-        [ 
-
-          BindingCollection.toView source "Items" model (fun source2 tup -> (UpDown.viewBindings source2 (tup |> Signal.map snd)))
-          |> Observable.map (fun (msg : UpDown.Msg, counter : Guid * UpDown.Model) -> UpDownMsg (msg, (fst counter)))
-          Binding.createMessage "Add" Add source
-          Binding.createMessage "Remove" Remove source
-          
+        [
+            "Sum" |> Elm.Bindings.oneWay ((List.map snd) >> List.map (fun m -> m.Value) >> (List.fold (+) 0.0))
+            "Add" |> Elm.Bindings.cmd (fun _ -> Add)
+            "Remove" |> Elm.Bindings.cmdCanExecute (fun _ -> Remove) (List.length >> (greaterThan 0))
+            "Items" |> (Elm.Bindings.toCollection UpDown.viewBindings (fun m -> snd m) (fun (msg, counter) -> UpDownMsg (msg, (fst counter))))
         ]
+        |> Elm.Bindings.convert source model

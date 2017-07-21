@@ -31,8 +31,7 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0"
                     Command="{Binding Path=Remove}"
-                    Content="-"
-                    IsEnabled="{Binding RemoveActivated}"/>
+                    Content="-"/>
             <Button Grid.Column="1"
                     Command="{Binding Path=Add}"
                     Content="+"/>
