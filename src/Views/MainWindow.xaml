@@ -44,7 +44,7 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <views:NumericUpDown/>
+                    <views:ParameterUserControl/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -54,7 +54,7 @@
                 <ColumnDefinition Width="2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="Sum"/>
-            <Label Grid.Column="1" Content="{Binding Sum}"></Label>
+            <Label Grid.Column="1" Content="{Binding Sum, Mode=OneWay}"></Label>
         </Grid>
         
     </Grid>

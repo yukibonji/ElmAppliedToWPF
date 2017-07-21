@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Views
 {
     /// <summary>
-    /// Interaction logic for NumericUpDown.xaml
+    /// Interaction logic for ParameterUserControl.xaml
     /// </summary>
-    public partial class NumericUpDown : UserControl
+    public partial class ParameterUserControl : UserControl
     {
-        public NumericUpDown()
+        public ParameterUserControl()
         {
             InitializeComponent();
         }

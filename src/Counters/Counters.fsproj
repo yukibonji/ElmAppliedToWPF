@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers/ListExtensions.fs" />
-    <Compile Include="Components/UpDown.fs" />
+    <Compile Include="Components/Parameter.fs" />
     <Compile Include="Components/Counters.fs" />
     <Compile Include="App.fs" />
     <Content Include="App.config" />
