@@ -22,9 +22,9 @@ module Counters =
 
     let update msg (model : Model) : Model =
         match msg with
-        | Add -> List.append model [Guid.NewGuid(), UpDown.init]
+        | Add ->  model @ [Guid.NewGuid(), UpDown.init]
         | Remove -> Counters.Helpers.ListExt.removeLast model
-        | UpDownMsg (udmsg, guid) -> model |> List.map (fun m -> (if (fst m) = guid then guid, UpDown.update udmsg (snd m) else m))
+        | UpDownMsg (udmsg, guid) -> model |> Counters.Helpers.ListExt.replace (fun (g, m) -> g = guid) (fun (g, m) -> g, UpDown.update udmsg m)
     
     let private greaterThan ref value =
         value > ref

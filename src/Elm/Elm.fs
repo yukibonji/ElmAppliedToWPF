@@ -5,25 +5,22 @@ open Gjallarhorn.Bindable
 
 open System
 
-type Getter<'model, 'a> = 'model -> 'a
-type Setter<'a, 'msg> = 'a -> 'msg
-
 type ViewBinding<'model, 'msg> = BindingSource -> ISignal<'model> -> IObservable<'msg> option
 type ViewBindings<'model, 'msg> = ViewBinding<'model, 'msg> list
 
 module Bindings =
-    let oneWay (getter : Getter<'model, 'a>) name : ViewBinding<'model, 'msg> =
+    let oneWay getter name : ViewBinding<'model, 'msg> =
         (fun (source : BindingSource) (model : ISignal<'model>) ->
             model |> Signal.map getter |> Gjallarhorn.Bindable.Binding.toView source name
             Option<IObservable<'msg>>.None)
 
-    let cmd (setter : Setter<'model, 'msg>) name : ViewBinding<'model, 'msg> =
+    let cmd setter name : ViewBinding<'model, 'msg> =
         (fun (source : BindingSource) (model : ISignal<'model>) ->
             let msg = model |> Signal.map setter |> Signal.get
             Gjallarhorn.Bindable.Binding.createMessage name msg source
             |> Some)
 
-    let cmdCanExecute (setter : Setter<'model, 'msg>) (canExecute : 'model -> bool) name : ViewBinding<'model, 'msg> =
+    let cmdCanExecute setter canExecute name : ViewBinding<'model, 'msg> =
         (fun (source : BindingSource) (model : ISignal<'model>) ->
             let msg = model |> Signal.map setter |> Signal.get
             Gjallarhorn.Bindable.Binding.createMessageChecked name (model |> Signal.map canExecute) msg source
@@ -39,7 +36,7 @@ module Bindings =
         Framework.basicApplication init update (fun s m -> bindings|> convert s m)
     
     
-    let twoWayWithConversion (getter : Getter<'model, 'a>) (setter : Setter<'b, 'msg>) (conversion : Interaction.Validation<'a, 'b>) name : ViewBinding<'model, 'msg> =
+    let twoWayWithConversion getter setter conversion name : ViewBinding<'model, 'msg> =
         (fun (source : BindingSource) (model : ISignal<'model>) ->
             model 
             |> Signal.map getter 
@@ -49,10 +46,10 @@ module Bindings =
             |> Observable.map setter
             |> Some)
 
-    let twoWay (getter : Getter<'model, 'a>) (setter : Setter<'b, 'msg>) name : ViewBinding<'model, 'msg> =
+    let twoWay getter setter name : ViewBinding<'model, 'msg> =
         twoWayWithConversion getter setter Gjallarhorn.Validation.Converters.fromTo name
 
-    let toCollection (bindings : ViewBindings<'a, 'b>) (getter : 'model -> 'a) (setter : 'b * 'model -> 'msg) name : ViewBinding<'model list, 'msg> = 
+    let toCollection (bindings : ViewBindings<'a, 'b>) getter setter name : ViewBinding<'model, 'msg> = 
         (fun source model -> 
             let comp = (fun s m -> (bindings |> convert s m))
             BindingCollection.toView source name model (fun s m -> m |> Signal.map getter |> comp s)
