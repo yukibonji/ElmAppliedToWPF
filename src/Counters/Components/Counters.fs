@@ -27,8 +27,8 @@ module Parameters =
 
     let viewBindings : Elm.ViewBindings<Model, Msg> =
         [
-            "Sum" |> Elm.Bindings.oneWay ((List.map snd) >> List.map (fun m -> m.Value) >> (List.fold (+) 0.0))
-            "Add" |> Elm.Bindings.cmd (fun _ -> Add)
-            "Remove" |> Elm.Bindings.cmdCanExecute (fun _ -> Remove) (List.length >> (greaterThan 0))
-            "Items" |> Elm.Bindings.toCollection Parameter.viewBindings snd (fun (msg, (guid, model)) -> UpDownMsg (msg, guid))
+            "Sum"    |> Elm.Bindings.oneWay ((List.map snd) >> List.map (fun m -> m.Value) >> (List.fold (+) 0.0))
+            "Add"    |> Elm.Bindings.cmd (fun _ -> Add)
+            "Remove" |> Elm.Bindings.cmdIf (fun _ -> Remove) (List.length >> (greaterThan 0))
+            "Items"  |> Elm.Bindings.collection Parameter.viewBindings snd (fun (msg, (guid, model)) -> UpDownMsg (msg, guid))
         ]

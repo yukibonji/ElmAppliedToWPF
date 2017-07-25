@@ -20,12 +20,12 @@ module Bindings =
             Gjallarhorn.Bindable.Binding.createMessage name msg source
             |> Some)
 
-    let cmdCanExecute setter canExecute name : ViewBinding<'model, 'msg> =
+    let cmdIf setter canExecute name : ViewBinding<'model, 'msg> =
         (fun (source : BindingSource) (model : ISignal<'model>) ->
             let msg = model |> Signal.map setter |> Signal.get
             Gjallarhorn.Bindable.Binding.createMessageChecked name (model |> Signal.map canExecute) msg source
             |> Some)
-     
+
     let convert source model (viewBindings : ViewBindings<'model, 'msg>) =
         viewBindings
         |> List.map (fun vb -> (vb source model))
@@ -34,9 +34,15 @@ module Bindings =
 
     let app init update bindings : Framework.ApplicationCore<'model, 'msg> =
         Framework.basicApplication init update (fun s m -> bindings|> convert s m)
-    
-    
-    let twoWayWithConversion getter setter conversion name : ViewBinding<'model, 'msg> =
+
+    let toComponent getter comp name : ViewBinding<'model, 'msg> =
+        (fun (source : BindingSource) (model : ISignal<'model>) ->
+            let c s m = convert s m comp
+            model |> Signal.map getter
+            |> Gjallarhorn.Bindable.Binding.componentToView source name c
+            |> Some)
+
+    let twoWayConverted getter setter conversion name : ViewBinding<'model, 'msg> =
         (fun (source : BindingSource) (model : ISignal<'model>) ->
             model 
             |> Signal.map getter 
@@ -47,9 +53,9 @@ module Bindings =
             |> Some)
 
     let twoWay getter setter name : ViewBinding<'model, 'msg> =
-        twoWayWithConversion getter setter Gjallarhorn.Validation.Converters.fromTo name
+        twoWayConverted getter setter Gjallarhorn.Validation.Converters.fromTo name
 
-    let toCollection (bindings : ViewBindings<'a, 'b>) getter setter name : ViewBinding<'model, 'msg> = 
+    let collection (bindings : ViewBindings<'a, 'b>) getter setter name : ViewBinding<'model, 'msg> = 
         (fun source model -> 
             let comp = (fun s m -> (bindings |> convert s m))
             BindingCollection.toView source name model (fun s m -> m |> Signal.map getter |> comp s)
