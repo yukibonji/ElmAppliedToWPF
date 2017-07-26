@@ -35,11 +35,12 @@ module Bindings =
     let app init update bindings : Framework.ApplicationCore<'model, 'msg> =
         Framework.basicApplication init update (fun s m -> bindings|> convert s m)
 
-    let toComponent getter comp name : ViewBinding<'model, 'msg> =
+    let toComponent (getter : 'model -> 'a) (setter : 'b -> 'msg) (comp : ViewBindings<'a, 'b>) name : ViewBinding<'model, 'msg> =
         (fun (source : BindingSource) (model : ISignal<'model>) ->
             let c s m = convert s m comp
             model |> Signal.map getter
             |> Gjallarhorn.Bindable.Binding.componentToView source name c
+            |> Observable.map setter
             |> Some)
 
     let twoWayConverted getter setter conversion name : ViewBinding<'model, 'msg> =
@@ -55,9 +56,9 @@ module Bindings =
     let twoWay getter setter name : ViewBinding<'model, 'msg> =
         twoWayConverted getter setter Gjallarhorn.Validation.Converters.fromTo name
 
-    let collection (bindings : ViewBindings<'a, 'b>) getter setter name : ViewBinding<'model, 'msg> = 
+    let collection (comp : ViewBindings<'a, 'b>) getter setter name : ViewBinding<'model, 'msg> = 
         (fun source model -> 
-            let comp = (fun s m -> (bindings |> convert s m))
-            BindingCollection.toView source name model (fun s m -> m |> Signal.map getter |> comp s)
+            let c s m = comp |> convert s m
+            BindingCollection.toView source name (model |> Signal.map getter) c
             |> Observable.map setter
             |> Some)
