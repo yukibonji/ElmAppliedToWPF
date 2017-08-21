@@ -4,7 +4,6 @@ open System
 
 module Parameter =
     type Model = { 
-            Id : Guid
             Name: string
             Value : double 
         }
@@ -17,7 +16,7 @@ module Parameter =
     | EditName of string
 
     let init name= 
-        { Id = Guid.NewGuid(); Name = name; Value = 0.0 }
+        { Name = name; Value = 0.0 }
 
     let update msg m =
         let op inc = {m with Value = m.Value + inc}

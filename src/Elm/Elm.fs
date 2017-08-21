@@ -8,7 +8,16 @@ open System
 type ViewBinding<'model, 'msg> = BindingSource -> ISignal<'model> -> IObservable<'msg> option
 type ViewBindings<'model, 'msg> = ViewBinding<'model, 'msg> list
 
+module ViewBinding = 
+    let map (fSignal : 'a -> 'model) (fObservable : 'msg -> 'b) (vb : ViewBinding<'model, 'msg>): ViewBinding<'a, 'b> =
+        (fun (source : BindingSource) (model : ISignal<'a>) -> 
+            vb source (model |> Signal.map fSignal)
+            |> Option.map (Observable.map fObservable))
+
 module Bindings =
+
+
+
     let oneWay getter name : ViewBinding<'model, 'msg> =
         (fun (source : BindingSource) (model : ISignal<'model>) ->
             model |> Signal.map getter |> Gjallarhorn.Bindable.Binding.toView source name
@@ -57,8 +66,12 @@ module Bindings =
         twoWayConverted getter setter Gjallarhorn.Validation.Converters.fromTo name
 
     let collection (comp : ViewBindings<'a, 'b>) getter setter name : ViewBinding<'model, 'msg> = 
-        (fun source model -> 
-            let c s m = comp |> convert s m
-            BindingCollection.toView source name (model |> Signal.map getter) c
-            |> Observable.map setter
+        (fun source (model : ISignal<'model>) ->
+            let models = model |> Signal.map (getter >> Seq.mapi (fun i m -> m, i))
+            let c :  Component<'a * int, 'b> = 
+                (fun s m ->
+                    let id = m |> Signal.map snd |> Signal.get
+                    convert s (Signal.map fst m) comp)
+            BindingCollection.toView source name models c 
+            |> Observable.map (fun (msg,(m, id)) -> setter msg id)
             |> Some)
