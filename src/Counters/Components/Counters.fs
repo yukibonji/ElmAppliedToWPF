@@ -11,7 +11,6 @@ module Parameters =
     }
         
         
-
     type Msg =
         | Add
         | Remove
@@ -27,15 +26,15 @@ module Parameters =
         | ListMsg (udmsg, idx) -> { model with List = model.List |> List.mapi (fun i m -> (if i = idx then Parameter.update udmsg m else m)) }
         | FirstMsg udmsg -> { model with First = Parameter.update udmsg model.First }
     
-    let private greaterThan ref value =
-        value > ref
+
 
     let viewBindings : Elm.ViewBindings<Model, Msg> =
-        let list m = m.List
+        let greaterThan ref value = value > ref
+        let getList m = m.List
         [
-            "Sum"    |> Elm.Bindings.oneWay (list >> List.map (fun m -> m.Value) >> (List.fold (+) 0.0))
+            "Sum"    |> Elm.Bindings.oneWay (getList >> List.map (fun m -> m.Value) >> List.fold (+) 0.0)
             "Add"    |> Elm.Bindings.cmd (fun _ -> Add)
-            "Remove" |> Elm.Bindings.cmdIf (fun _ -> Remove) (list >> List.length >> (greaterThan 0))
-            "Items"  |> Elm.Bindings.collection Parameter.viewBindings list (fun msg id -> ListMsg (msg, id))
-            "First"  |> Elm.Bindings.toComponent (fun m -> m.First) FirstMsg Parameter.viewBindings 
+            "Remove" |> Elm.Bindings.cmdIf (fun _ -> Remove) (getList >> List.length >> (greaterThan 0))
+            "Items"  |> Elm.Bindings.vmCollection getList (fun msg idx -> ListMsg (msg, idx)) Parameter.viewBindings
+            "First"  |> Elm.Bindings.vm (fun m -> m.First) FirstMsg Parameter.viewBindings 
         ]

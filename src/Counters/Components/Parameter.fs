@@ -4,11 +4,10 @@ open System
 
 module Parameter =
     type Model = { 
-            Name: string
-            Value : double 
-        }
+        Name: string
+        Value : double 
+    }
 
-       
     type Msg =
     | Up
     | Down
@@ -28,8 +27,8 @@ module Parameter =
 
     let viewBindings : Elm.ViewBindings<Model, Msg> = 
         [
-            "Up" |> Elm.Bindings.cmd (fun _ -> Up)
-            "Down" |> Elm.Bindings.cmd (fun _ -> Down)
+            "Up"    |> Elm.Bindings.cmd (fun _ -> Up)
+            "Down"  |> Elm.Bindings.cmd (fun _ -> Down)
             "Value" |> Elm.Bindings.twoWay (fun m -> m.Value) EditValue
-            "Name" |> Elm.Bindings.twoWay (fun m -> m.Name) EditName
+            "Name"  |> Elm.Bindings.twoWay (fun m -> m.Name) EditName
         ]
