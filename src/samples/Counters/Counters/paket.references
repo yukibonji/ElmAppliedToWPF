@@ -3,3 +3,7 @@ FSharp.Core
 Gjallarhorn
 Gjallarhorn.Bindable
 Gjallarhorn.Bindable.Wpf
+
+group Samples
+	Serilog
+	Serilog.Sinks.ColoredConsole

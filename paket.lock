@@ -11,3 +11,14 @@ NUGET
     Gjallarhorn.Bindable.Wpf (0.0.10-beta)
       Gjallarhorn (>= 0.0.10-beta)
       Gjallarhorn.Bindable (>= 0.0.10-beta)
+
+GROUP Samples
+REDIRECTS: ON
+RESTRICTION: == net462
+NUGET
+  remote: https://www.nuget.org/api/v2
+    Serilog (2.5)
+    Serilog.Sinks.ColoredConsole (3.0.1)
+      Serilog.Sinks.Console (>= 3.0.1)
+    Serilog.Sinks.Console (3.0.1)
+      Serilog (>= 2.5)
