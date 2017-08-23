@@ -51,7 +51,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Elm\Elm.fsproj">
+    <ProjectReference Include="..\..\..\Elm\Elm.fsproj">
       <Name>Elm</Name>
       <Project>{35a70c96-df53-49a7-99ed-843700547a75}</Project>
       <Private>True</Private>
