@@ -1,7 +1,5 @@
 open System
 
-open Gjallarhorn.Wpf
-
 open Serilog
 
 
@@ -20,4 +18,4 @@ let main _ =
     let update = log Counters.Components.Parameters.update
     let comp = Elm.App.app Counters.Components.Parameters.init update Counters.Components.Parameters.viewBindings
     let window = Views.MainWindow
-    Framework.runApplication System.Windows.Application window comp
+    Elm.App.run window comp
