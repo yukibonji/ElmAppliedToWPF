@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{0C84
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Counters", "Counters", "{31B40EB6-2D3C-406F-8CE0-F5DBAB895ECB}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Counters", "src\samples\Counters\Counters\Counters.fsproj", "{6046B73F-C43B-4BC1-9A24-DA0C8783F7CD}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Counters", "Samples\Counters\Counters.fsproj", "{6046B73F-C43B-4BC1-9A24-DA0C8783F7CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
