@@ -35,7 +35,7 @@ module Parameter =
         Down : VmCmd<Msg>
     }
 
-    let design = { Title = ""; Current = 0.0; Up = Vm.cmd Up; Down = Vm.cmd Down }
+    let design = { Title = "Title"; Current = Math.PI ; Up = Vm.cmd Up; Down = Vm.cmd Down }
 
     let viewBindings : Component<Model, Msg> = 
         Component.fromBindings<Model, Msg> [

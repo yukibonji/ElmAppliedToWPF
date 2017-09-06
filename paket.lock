@@ -9,11 +9,13 @@ NUGET
   remote: https://www.nuget.org/api/v2
     FAKE (4.63)
 
-GROUP Library
+GROUP Samples
+REDIRECTS: ON
 RESTRICTION: == net462
 NUGET
   remote: https://www.nuget.org/api/v2
     FSharp.Core (4.0.0.1)
+    FsXaml.Wpf (3.1.6)
     Gjallarhorn (1.0)
       FSharp.Core (4.0.0.1)
     Gjallarhorn.Bindable (1.0.0-beta2)
@@ -23,12 +25,6 @@ NUGET
       FSharp.Core (4.0.0.1)
       Gjallarhorn (>= 1.0)
       Gjallarhorn.Bindable (>= 1.0.0-beta2)
-
-GROUP Samples
-REDIRECTS: ON
-RESTRICTION: == net462
-NUGET
-  remote: https://www.nuget.org/api/v2
     Serilog (2.5)
     Serilog.Sinks.ColoredConsole (3.0.1)
       Serilog.Sinks.Console (>= 3.0.1)

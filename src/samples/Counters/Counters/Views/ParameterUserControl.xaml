@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="Views.ParameterUserControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:views="clr-namespace:Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="200">
+             mc:Ignorable="d"
+             xmlns:gestures="clr-namespace:Helpers.Gestures;assembly=Counters"
+             xmlns:model="clr-namespace:Counters.Components;assembly=Counters"
+             d:DesignHeight="100" d:DesignWidth="200" d:DataContext="{x:Static model:Parameter.design}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -23,12 +23,12 @@
                 <KeyBinding Key="Down" Command="{Binding Down}"/>
                 <MouseBinding Command="{Binding Up}">
                     <MouseBinding.Gesture>
-                        <views:MouseWheelUp/>
+                        <gestures:MouseWheelUp/>
                     </MouseBinding.Gesture>
                 </MouseBinding>
                 <MouseBinding Command="{Binding Down}" >
                     <MouseBinding.Gesture>
-                        <views:MouseWheelDown/>
+                        <gestures:MouseWheelDown/>
                     </MouseBinding.Gesture>
                 </MouseBinding>
             </TextBox.InputBindings>

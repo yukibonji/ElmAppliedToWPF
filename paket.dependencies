@@ -8,17 +8,16 @@ group Build
 	source https://www.nuget.org/api/v2
 	nuget FAKE
 	
-group Library
+group Samples
 	source https://www.nuget.org/api/v2
+	redirects on
 	framework net462
 	nuget Gjallarhorn >= 1 alpha beta rc prerelease
 	nuget Gjallarhorn.Bindable >= 1 alpha beta rc prerelease
 	nuget Gjallarhorn.Bindable.Wpf >= 1 alpha beta rc prerelease
 
-group Samples
-	source https://www.nuget.org/api/v2
-	redirects on
-	framework net462
+	nuget FsXaml.Wpf
+
 	nuget Serilog
 	nuget Serilog.Sinks.ColoredConsole
 

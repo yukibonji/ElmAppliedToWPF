@@ -1,10 +1,9 @@
 FSharp.Core
 
-group Library
+group Samples
 	Gjallarhorn
 	Gjallarhorn.Bindable
 	Gjallarhorn.Bindable.Wpf
-
-group Samples
+	FsXaml.Wpf
 	Serilog
 	Serilog.Sinks.ColoredConsole

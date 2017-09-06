@@ -34,16 +34,16 @@ module Parameters =
         Sum : double
     }
 
-    type ParametersViewModel = {
-        Parameters : Parameter.Model list
-    }
+    // type ParametersViewModel = {
+    //     Parameters : Parameter.Model list
+    // }
 
-    let designParameters = { Parameters = [] }
+    // let designParameters = { Parameters = [] }
 
-    let parametersComponent = 
-        Component.fromBindings [
-            <@ designParameters.Parameters @> |> Bind.collection id Parameter.viewBindings fst
-        ]
+    // let parametersComponent = 
+    //     Component.fromBindings [
+    //         <@ designParameters.Parameters @> |> Bind.collection id Parameter.viewBindings fst
+    //     ]
 
     let design = { Items = []; First = Parameter.init("Default"); Add = Vm.cmd Add; Remove = Vm.cmd Remove; Sum = 0.0 }
     let viewBindings =

@@ -6,6 +6,8 @@ open Gjallarhorn
 open Gjallarhorn.Wpf
 open Gjallarhorn.Bindable.Framework
 
+
+
 [<STAThread; EntryPoint>]
 let main _ =
 
