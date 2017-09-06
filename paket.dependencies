@@ -1,16 +1,19 @@
 source https://www.nuget.org/api/v2
 redirects on
 framework net462
-generate_load_scripts: true
 
+nuget FSharp.Core ~> 4.0.0.1
 
-nuget FAKE
-
-nuget FSharp.Core
-
-nuget Gjallarhorn
-nuget Gjallarhorn.Bindable
-nuget Gjallarhorn.Bindable.Wpf
+group Build
+	source https://www.nuget.org/api/v2
+	nuget FAKE
+	
+group Library
+	source https://www.nuget.org/api/v2
+	framework net462
+	nuget Gjallarhorn >= 1 alpha beta rc prerelease
+	nuget Gjallarhorn.Bindable >= 1 alpha beta rc prerelease
+	nuget Gjallarhorn.Bindable.Wpf >= 1 alpha beta rc prerelease
 
 group Samples
 	source https://www.nuget.org/api/v2
@@ -19,5 +22,3 @@ group Samples
 	nuget Serilog
 	nuget Serilog.Sinks.ColoredConsole
 
-# nuget Expression.Blend.Sdk
-# nuget FsXaml.Wpf 3.1.2

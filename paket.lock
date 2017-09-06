@@ -1,16 +1,28 @@
-GENERATE-LOAD-SCRIPTS: ON
 REDIRECTS: ON
 RESTRICTION: == net462
 NUGET
   remote: https://www.nuget.org/api/v2
-    FAKE (4.62.5)
-    FSharp.Core (4.2.1)
-    Gjallarhorn (0.0.10-beta)
-    Gjallarhorn.Bindable (0.0.10-beta)
-      Gjallarhorn (>= 0.0.10-beta)
-    Gjallarhorn.Bindable.Wpf (0.0.10-beta)
-      Gjallarhorn (>= 0.0.10-beta)
-      Gjallarhorn.Bindable (>= 0.0.10-beta)
+    FSharp.Core (4.0.0.1)
+
+GROUP Build
+NUGET
+  remote: https://www.nuget.org/api/v2
+    FAKE (4.63)
+
+GROUP Library
+RESTRICTION: == net462
+NUGET
+  remote: https://www.nuget.org/api/v2
+    FSharp.Core (4.0.0.1)
+    Gjallarhorn (1.0)
+      FSharp.Core (4.0.0.1)
+    Gjallarhorn.Bindable (1.0.0-beta2)
+      FSharp.Core (4.0.0.1)
+      Gjallarhorn (>= 1.0)
+    Gjallarhorn.Bindable.Wpf (1.0.0-beta2)
+      FSharp.Core (4.0.0.1)
+      Gjallarhorn (>= 1.0)
+      Gjallarhorn.Bindable (>= 1.0.0-beta2)
 
 GROUP Samples
 REDIRECTS: ON

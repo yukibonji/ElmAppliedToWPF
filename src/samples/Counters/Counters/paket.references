@@ -1,8 +1,9 @@
 FSharp.Core
 
-Gjallarhorn
-Gjallarhorn.Bindable
-Gjallarhorn.Bindable.Wpf
+group Library
+	Gjallarhorn
+	Gjallarhorn.Bindable
+	Gjallarhorn.Bindable.Wpf
 
 group Samples
 	Serilog
