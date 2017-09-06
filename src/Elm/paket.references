@@ -1,6 +1,0 @@
-FSharp.Core
-
-group Library
-    Gjallarhorn
-    Gjallarhorn.Bindable
-    Gjallarhorn.Bindable.Wpf

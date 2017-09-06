@@ -2,6 +2,9 @@ open System
 
 open Serilog
 
+open Gjallarhorn
+open Gjallarhorn.Wpf
+open Gjallarhorn.Bindable.Framework
 
 [<STAThread; EntryPoint>]
 let main _ =
@@ -16,6 +19,6 @@ let main _ =
             Log.Information("State {@State}", state)
             state)
     let update = log Counters.Components.Parameters.update
-    let comp = Elm.App.app Counters.Components.Parameters.init update Counters.Components.Parameters.viewBindings
-    let window = Views.MainWindow
-    Elm.App.run window comp
+    let comp = Framework.basicApplication Counters.Components.Parameters.init update Counters.Components.Parameters.viewBindings
+    Gjallarhorn.Wpf.Framework.RunApplication (Func<_>(Views.MainWindow), comp)
+    1

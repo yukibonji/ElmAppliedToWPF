@@ -1,7 +1,7 @@
 namespace Counters.Components
 
 open System
-
+open Gjallarhorn.Bindable;
 
 module Parameters =   
     
@@ -14,7 +14,7 @@ module Parameters =
     type Msg =
         | Add
         | Remove
-        | ListMsg of Parameter.Msg * int
+        | ListMsg of Parameter.Msg * Guid
         | FirstMsg of Parameter.Msg
 
     let init = { First = Parameter.init("Default"); List = []}
@@ -23,19 +23,39 @@ module Parameters =
         match msg with
         | Add ->  { model with List = model.List @ [Parameter.init(sprintf "Param%d" (List.length model.List))] }
         | Remove -> { model with List = Counters.Helpers.ListExt.removeLast model.List }
-        | ListMsg (udmsg, idx) -> { model with List = model.List |> List.mapi (fun i m -> (if i = idx then Parameter.update udmsg m else m)) }
+        | ListMsg (udmsg, id) -> { model with List = model.List |> List.map (fun m -> (if m.Id = id then Parameter.update udmsg m else m)) }
         | FirstMsg udmsg -> { model with First = Parameter.update udmsg model.First }
     
-    let viewBindings : Elm.ViewBindings<Model, Msg> =
+    type ViewModel = {
+        Items : Parameter.Model list
+        First : Parameter.Model
+        Add : VmCmd<Msg>
+        Remove : VmCmd<Msg>
+        Sum : double
+    }
+
+    type ParametersViewModel = {
+        Parameters : Parameter.Model list
+    }
+
+    let designParameters = { Parameters = [] }
+
+    let parametersComponent = 
+        Component.fromBindings [
+            <@ designParameters.Parameters @> |> Bind.collection id Parameter.viewBindings fst
+        ]
+
+    let design = { Items = []; First = Parameter.init("Default"); Add = Vm.cmd Add; Remove = Vm.cmd Remove; Sum = 0.0 }
+    let viewBindings =
         let greaterThan ref value = value > ref
-        let getList m = m.List
-        let getFirst m = m.First
+        let getList (m : Model) = m.List
+        let getFirst (m : Model) = m.First
 
         let getValue (m:Parameter.Model) = m.Value
-        [
-            "Sum"    |> Elm.Bindings.oneWay (fun m -> List.fold (+) (m |> getFirst |> getValue) (m |> getList |> List.map getValue))
-            "Add"    |> Elm.Bindings.cmd Add
-            "Remove" |> Elm.Bindings.cmdIf Remove (getList >> List.length >> (greaterThan 0))
-            "Items"  |> Elm.Bindings.vmCollection getList (fun msg idx -> ListMsg (msg, idx)) Parameter.viewBindings
-            "First"  |> Elm.Bindings.vm (fun m -> m.First) FirstMsg Parameter.viewBindings 
+        Component.fromBindings<Model, Msg> [
+            <@ design.First @>  |> Bind.comp getFirst Parameter.viewBindings (fst >> FirstMsg)
+            <@ design.Sum @>    |> Bind.oneWay (fun m -> List.fold (+) (m |> getFirst |> getValue) (m |> getList |> List.map getValue))
+            <@ design.Add @>    |> Bind.cmd
+            <@ design.Remove @> |> Bind.cmdIf (getList >> List.length >> (greaterThan 0))
+            <@ design.Items @>  |> Bind.collection getList Parameter.viewBindings (fun (msg, m) -> ListMsg(msg, m.Id))
         ]
