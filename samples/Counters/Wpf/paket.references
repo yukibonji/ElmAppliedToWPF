@@ -1,0 +1,7 @@
+﻿group App
+    FSharp.Core
+
+    Gjallarhorn.Bindable.Wpf
+    FsXaml.Wpf
+    Serilog
+    Serilog.Sinks.ColoredConsole

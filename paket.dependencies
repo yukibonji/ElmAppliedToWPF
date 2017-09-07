@@ -1,19 +1,24 @@
-source https://www.nuget.org/api/v2
-redirects on
-framework net462
+group Build
+    source https://www.nuget.org/api/v2
+    redirects on
+    framework: net461, net45, portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1
 
-nuget FSharp.Core
+    nuget FSharp.Core 4.0.0.1
 
-nuget FAKE
+    nuget FAKE
+
+group App
+    source https://www.nuget.org/api/v2
+    redirects on
+    framework: net461, net45, portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1
+    
+    nuget Gjallarhorn >= 1 alpha beta rc prerelease
+    nuget Gjallarhorn.Bindable >= 1 alpha beta rc prerelease
+    nuget Gjallarhorn.Bindable.Wpf >= 1 alpha beta rc prerelease
+
+    nuget FsXaml.Wpf
 
 
-nuget Gjallarhorn >= 1 alpha beta rc prerelease
-nuget Gjallarhorn.Bindable >= 1 alpha beta rc prerelease
-nuget Gjallarhorn.Bindable.Wpf >= 1 alpha beta rc prerelease
-
-nuget FsXaml.Wpf
-
-
-nuget Serilog
-nuget Serilog.Sinks.ColoredConsole
+    nuget Serilog
+    nuget Serilog.Sinks.ColoredConsole
 

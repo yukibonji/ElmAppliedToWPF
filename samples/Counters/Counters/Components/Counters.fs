@@ -34,24 +34,23 @@ module Parameters =
         Sum : double
     }
 
-    // type ParametersViewModel = {
-    //     Parameters : Parameter.Model list
-    // }
+    //type ParametersViewModel = {
+    //    Parameters : Parameter.Model list
+    //}
 
-    // let designParameters = { Parameters = [] }
+    //let designParameters = { Parameters = [] }
 
-    // let parametersComponent = 
-    //     Component.fromBindings [
-    //         <@ designParameters.Parameters @> |> Bind.collection id Parameter.viewBindings fst
-    //     ]
+    //let parametersComponent = 
+    //    Component.fromBindings [
+    //        <@ designParameters.Parameters @> |> Bind.collection id Parameter.viewBindings (fun (msg, m) -> ListMsg(msg, m.Id))
+    //    ]
 
-    let design = { Items = []; First = Parameter.init("Default"); Add = Vm.cmd Add; Remove = Vm.cmd Remove; Sum = 0.0 }
+    let design = { Items = [Parameter.init("Param 0")]; First = Parameter.init("Default"); Add = Vm.cmd Add; Remove = Vm.cmd Remove; Sum = 0.0 }
 
     let viewBindings =
         let greaterThan ref value = value > ref
         let getList (m : Model) = m.List
         let getFirst (m : Model) = m.First
-
         let getValue (m:Parameter.Model) = m.Value
         Component.fromBindings<Model, Msg> [
             <@ design.First @>  |> Bind.comp getFirst Parameter.viewBindings (fst >> FirstMsg)
@@ -59,4 +58,5 @@ module Parameters =
             <@ design.Add @>    |> Bind.cmd
             <@ design.Remove @> |> Bind.cmdIf (getList >> List.length >> (greaterThan 0))
             <@ design.Items @>  |> Bind.collection getList Parameter.viewBindings (fun (msg, m) -> ListMsg(msg, m.Id))
+            //<@ design.Items @>  |> Bind.comp getList parametersComponent fst
         ]

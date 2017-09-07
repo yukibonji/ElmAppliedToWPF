@@ -1,0 +1,6 @@
+group App
+    FSharp.Core
+
+    Gjallarhorn
+    Gjallarhorn.Bindable
+

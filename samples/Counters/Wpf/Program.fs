@@ -1,8 +1,7 @@
-open System
+﻿open System
 
 open Serilog
 
-open Gjallarhorn
 open Gjallarhorn.Wpf
 open Gjallarhorn.Bindable.Framework
 

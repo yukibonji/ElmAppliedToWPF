@@ -3,7 +3,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             xmlns:gestures="clr-namespace:Helpers.Gestures;assembly=Counters"
+             xmlns:gestures="clr-namespace:Helpers.Gestures;assembly=Wpf"
              xmlns:model="clr-namespace:Counters.Components;assembly=Counters"
              d:DesignHeight="100" d:DesignWidth="200" d:DataContext="{x:Static model:Parameter.design}">
     <Grid>
