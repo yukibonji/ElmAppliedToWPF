@@ -16,8 +16,9 @@ let main _ =
         .CreateLogger()
     let log (update:'a -> 'b -> 'b) = 
         (fun e m ->
+            let old = m
             let state = update e m
-            Log.Information("State {@State}", state)
+            Log.Information("{@Old} -> @{Msg} -> @{New}", old, e, state)
             state)
     let update = log Counters.Components.Parameters.update
     let comp = Framework.basicApplication Counters.Components.Parameters.init update Counters.Components.Parameters.viewBindings

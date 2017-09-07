@@ -16,8 +16,9 @@ type MouseWheelGesture (predicate ,modifiers: ModifierKeys) =
             | _ -> (this.Predicate args)
 
 module methods =
-    let greaterThan limit (e:MouseWheelEventArgs) = e.Delta > limit
-    let lessThan limit (e:MouseWheelEventArgs) = e.Delta < limit
+    let getDelta (e:MouseWheelEventArgs) = e.Delta/System.Windows.SystemParameters.WheelScrollLines
+    let greaterThan limit (e:MouseWheelEventArgs) = (getDelta e) > limit
+    let lessThan limit (e:MouseWheelEventArgs) = (getDelta e) < limit
 
 type MouseWheelUp (modifiers) =
     inherit MouseWheelGesture((methods.greaterThan 0), modifiers)
