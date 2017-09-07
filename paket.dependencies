@@ -1,17 +1,16 @@
 group Build
     source https://www.nuget.org/api/v2
-    redirects on
-    framework: net461, net45, portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1
-
-    nuget FSharp.Core 4.0.0.1
-
+    framework: net45
+    nuget FSharp.Core
     nuget FAKE
 
 group App
     source https://www.nuget.org/api/v2
     redirects on
-    framework: net461, net45, portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1
+    framework: net462, portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1
     
+    nuget FSharp.Core 4.0.0.1
+
     nuget Gjallarhorn >= 1 alpha beta rc prerelease
     nuget Gjallarhorn.Bindable >= 1 alpha beta rc prerelease
     nuget Gjallarhorn.Bindable.Wpf >= 1 alpha beta rc prerelease

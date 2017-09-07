@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Wpf</RootNamespace>
     <AssemblyName>Wpf</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFSharpCoreVersion>4.4.1.0</TargetFSharpCoreVersion>
     <Name>Wpf</Name>

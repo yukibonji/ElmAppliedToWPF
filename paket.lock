@@ -7,15 +7,15 @@ NUGET
   remote: https://www.nuget.org/api/v2
     FSharp.Core (4.0.0.1)
     FsXaml.Wpf (3.1.6)
-    Gjallarhorn (1.0)
-      FSharp.Core (4.0.0.1)
-    Gjallarhorn.Bindable (1.0.0-beta2)
-      FSharp.Core (4.0.0.1)
+    Gjallarhorn (1.0.1)
+      FSharp.Core (>= 4.0.0.1)
+    Gjallarhorn.Bindable (1.0.0-beta4)
+      FSharp.Core (>= 4.0.0.1)
       Gjallarhorn (>= 1.0)
-    Gjallarhorn.Bindable.Wpf (1.0.0-beta2)
-      FSharp.Core (4.0.0.1)
+    Gjallarhorn.Bindable.Wpf (1.0.0-beta4)
+      FSharp.Core (>= 4.0.0.1)
       Gjallarhorn (>= 1.0)
-      Gjallarhorn.Bindable (>= 1.0.0-beta2)
+      Gjallarhorn.Bindable (>= 1.0.0-beta4)
     Microsoft.CSharp (4.4) - restriction: || (&& (< net45) (>= netstandard1.0) (< netstandard1.3)) (&& (< net45) (>= netstandard1.3))
       NETStandard.Library (>= 1.6.1) - restriction: || (&& (< net45) (>= netstandard1.0) (< netstandard1.3) (< monoandroid) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard1.3) (< netstandard2.0) (< monotouch) (< xamarintvos) (< xamarinwatchos) (< xamarinios) (< xamarinmac) (< win8) (< wpa81)) (&& (>= dnxcore50) (>= portable-net45+win8+wp8+wpa81))
       System.Dynamic.Runtime (>= 4.3) - restriction: || (&& (< net45) (>= netstandard1.0) (< netstandard1.3) (< monoandroid) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard1.3) (< netstandard2.0) (< monotouch) (< xamarintvos) (< xamarinwatchos) (< xamarinios) (< xamarinmac) (< win8) (< wpa81)) (&& (>= dnxcore50) (>= portable-net45+win8+wp8+wpa81))
@@ -559,9 +559,8 @@ NUGET
       System.Xml.ReaderWriter (>= 4.3) - restriction: || (&& (< net45) (>= netstandard1.0) (< netstandard1.3) (< monoandroid) (< win8) (< wp8) (< wpa81)) (&& (< net45) (>= netstandard1.3) (< monotouch) (< xamarintvos) (< xamarinwatchos) (< xamarinios) (< xamarinmac) (< win8) (< wpa81)) (&& (>= dnxcore50) (>= portable-net45+win8+wp8+wpa81))
 
 GROUP Build
-REDIRECTS: ON
-RESTRICTION: >= portable-net45+win8+wp8+wpa81
+RESTRICTION: == net45
 NUGET
   remote: https://www.nuget.org/api/v2
     FAKE (4.63)
-    FSharp.Core (4.0.0.1)
+    FSharp.Core (4.2.3)
