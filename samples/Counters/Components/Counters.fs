@@ -46,6 +46,7 @@ module Parameters =
     //     ]
 
     let design = { Items = []; First = Parameter.init("Default"); Add = Vm.cmd Add; Remove = Vm.cmd Remove; Sum = 0.0 }
+
     let viewBindings =
         let greaterThan ref value = value > ref
         let getList (m : Model) = m.List

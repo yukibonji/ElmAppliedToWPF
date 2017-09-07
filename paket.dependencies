@@ -2,22 +2,18 @@ source https://www.nuget.org/api/v2
 redirects on
 framework net462
 
-nuget FSharp.Core ~> 4.0.0.1
+nuget FSharp.Core
 
-group Build
-	source https://www.nuget.org/api/v2
-	nuget FAKE
-	
-group Samples
-	source https://www.nuget.org/api/v2
-	redirects on
-	framework net462
-	nuget Gjallarhorn >= 1 alpha beta rc prerelease
-	nuget Gjallarhorn.Bindable >= 1 alpha beta rc prerelease
-	nuget Gjallarhorn.Bindable.Wpf >= 1 alpha beta rc prerelease
+nuget FAKE
 
-	nuget FsXaml.Wpf
 
-	nuget Serilog
-	nuget Serilog.Sinks.ColoredConsole
+nuget Gjallarhorn >= 1 alpha beta rc prerelease
+nuget Gjallarhorn.Bindable >= 1 alpha beta rc prerelease
+nuget Gjallarhorn.Bindable.Wpf >= 1 alpha beta rc prerelease
+
+nuget FsXaml.Wpf
+
+
+nuget Serilog
+nuget Serilog.Sinks.ColoredConsole
 

@@ -6,7 +6,9 @@
     mc:Ignorable="d"
     xmlns:views="clr-namespace:Views;assembly=Counters"
     xmlns:model="clr-namespace:Counters.Components;assembly=Counters"
-    Title="Elm applied to WPF!" Height="200" Width="400" d:DataContext="{x:Static model:Parameters.design}">
+    SizeToContent="WidthAndHeight"
+    MinHeight="200" MinWidth="400"
+    Title="Elm applied to WPF!" d:DataContext="{x:Static model:Parameters.design}">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Width" Value="50" />
